@@ -1,0 +1,39 @@
+<?xml version="1.0" ?>
+<materialLib name="Silhouette">
+	<shaders>
+		<shader name="silhouette"	vs = "shaders/silhouette.vert"
+									gs = "shaders/silhouette.geom"
+									ps = "shaders/silhouette.frag" />
+	</shaders>
+	
+	<materials>
+		<material name="silhouette">
+			<color>
+				<DIFFUSE r="0.0" g="0.0" b="0.0" a="1.0" />
+			</color>
+			<shader name="silhouette">
+				<values>
+					<valueof uniform="mPVM" 
+							 type="RENDERER" context="CURRENT" 
+							 component="PROJECTION_VIEW_MODEL" />
+
+					<valueof uniform="ModelViewMatrix" 
+							 type="RENDERER" context="CURRENT" 
+							 component="VIEW_MODEL" />
+
+					<valueof uniform="NormalMatrix" 
+							 type="RENDERER" context="CURRENT" 
+							 component="NORMAL" />
+
+					<valueof uniform="ProjectionMatrix" 
+							 type="RENDERER" context="CURRENT" 
+							 component="PROJECTION" />
+							 
+					<valueof uniform="LineColor"
+							type="COLOR" context="CURRENT"
+							component="DIFFUSE" />
+				</values>
+			</shader>
+		</material>
+	</materials>
+</materialLib>	

@@ -1,8 +1,8 @@
 <?xml version="1.0" ?>
-<project name="Hatching" >
+<project name="Silhouette" >
 	<assets>
 		<scenes>
-			<scene name="Model" param="UNITIZE SWAP_YZ">
+			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
 				<file name="models/Teapot.3ds"/>
 			</scene>
 		</scenes>
@@ -15,13 +15,12 @@
 		
 		<cameras>
 			<camera name="MainCamera" >
-				<viewport name="MainViewport" />
-				<TYPE value="PERSPECTIVE"/>
-				<FOV value=60/>
-				<NEAR value= 0.1/>
-				<FAR value= 100/>
+				<viewport name="MainViewport"/>
 				<POSITION x=-1.914014 y=0.492289 z=1.460414 />
 				<VIEW x=0.810088 y=-0.208939 z=-0.547815 />
+				<UP x=0 y=1 z=0 />
+				<NEAR value=0.1 />
+				<FAR value=100 />
 			</camera>
 		</cameras>
 		
@@ -32,13 +31,13 @@
 		</lights>
 		
 		<materialLibs>
-			<materialLib filename="hatching.mlib" />
+			<materialLib filename="silhouette.mlib" />
 		</materialLibs>
 	</assets>
 	
-	<pipelines default="Hatching">
-		<pipeline name="Hatching">
-			<pass class="default" name="hatching">
+	<pipelines default="Silhouette">
+		<pipeline name="Silhouette">
+			<pass class="default" name="silhouette">
 				<scenes>
 					<scene name="Model" />
 				</scenes>
@@ -48,7 +47,7 @@
 				</lights>
 				<materialMaps>
 					<map fromMaterial="*" 
-						toMaterial="hatching" toLibrary="Materials" />
+						toMaterial="silhouette" toLibrary="Silhouette" />
 				</materialMaps>
 			</pass>
 		</pipeline>

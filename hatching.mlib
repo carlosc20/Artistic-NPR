@@ -2,12 +2,12 @@
 <materialLib name="Materials">
 
 	<textures>
-		ue<texture name="hatch0" filename="textures/hatch_0.jpg" mipmap=true/>
-		ue<texture name="hatch1" filename="textures/hatch_1.jpg" mipmap=true/>
-		ue<texture name="hatch2" filename="textures/hatch_2.jpg" mipmap=true/>
-		ue<texture name="hatch3" filename="textures/hatch_3.jpg" mipmap=true/>
-		ue<texture name="hatch4" filename="textures/hatch_4.jpg" mipmap=true/>
-		ue<texture name="hatch5" filename="textures/hatch_5.jpg" mipmap=true/>
+		<texture name="hatch0" filename="textures/hatch_0.jpg" mipmap=true/>
+		<texture name="hatch1" filename="textures/hatch_1.jpg" mipmap=true/>
+		<texture name="hatch2" filename="textures/hatch_2.jpg" mipmap=true/>
+		<texture name="hatch3" filename="textures/hatch_3.jpg" mipmap=true/>
+		<texture name="hatch4" filename="textures/hatch_4.jpg" mipmap=true/>
+		<texture name="hatch5" filename="textures/hatch_5.jpg" mipmap=true/>
 	</textures>
 
 	<shaders>
