@@ -1,5 +1,5 @@
 <?xml version="1.0" ?>
-<project name="OilPainting" >
+<project name="OilPainting" width=512 height = 512>
 	<assets>
 		<scenes>
 			<scene name="Model" param="UNITIZE SWAP_YZ">

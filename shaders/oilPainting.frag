@@ -4,7 +4,7 @@ smooth in highp vec2 texCoord;
 
 // Uni
 uniform sampler2D uni_Texture;
-int uni_Radius = 2;
+int uni_Radius = 5;
 vec2 uni_ScreenSize = vec2(512, 512);
 
 // Out
