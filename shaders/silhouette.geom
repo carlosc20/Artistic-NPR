@@ -3,14 +3,15 @@
 layout(triangles_adjacency) in;
 layout (triangle_strip, max_vertices=15) out;
 
-//In
-in vec3 VNormal[]; // Normal in camera coords.
-in vec3 VPosition[]; // Position in camera coords.
+// in
+in vec3 VNormal[];      // Normal in camera coords.
+in vec3 VPosition[];    // Position in camera coords.
 
-float PctExtend = 1.5;
-float EdgeWidth = 0.01;
+// uniforms
+uniform float PctExtend;
+uniform float EdgeWidth;
 
-//Out
+// out
 out vec3 GNormal;
 out vec3 GPosition;
 flat out int GIsEdge;

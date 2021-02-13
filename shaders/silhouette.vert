@@ -1,17 +1,18 @@
 #version 330
 
-// In
+
+// in
 in vec4 position;
 in vec3 normal;
 
-// Uni
+// uniforms
 
 uniform mat4 ModelViewMatrix;
 uniform mat3 NormalMatrix;
 uniform mat4 ProjectionMatrix;
 uniform mat4 mPVM;
 
-// Out
+// out
 out vec3 VNormal;
 out vec3 VPosition;
 
