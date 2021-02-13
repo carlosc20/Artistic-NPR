@@ -1,6 +1,12 @@
 <?xml version="1.0" ?>
 <project name="Silhouette" >
 	<assets>
+		<attributes>
+			<attribute type="RENDERER" name="LineColor" data="VEC4" x="0.0" y="0.0" z="0.0" w="1.0"/>
+			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="1.5"/>
+			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.01"/>
+		</attributes>
+
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
 				<file name="models/Teapot.3ds"/>
@@ -52,4 +58,12 @@
 			</pass>
 		</pipeline>
 	</pipelines>
+
+	<interface>
+        <window label="settings">
+			<var label="Line color" type="RENDERER" context="CURRENT" component="LineColor" mode="COLOR" />
+			<var label="Pct Extend" type="RENDERER" context="CURRENT" component="PctExtend" />
+			<var label="Edge Width" type="RENDERER" context="CURRENT" component="EdgeWidth" />
+         </window>
+    </interface>
 </project>

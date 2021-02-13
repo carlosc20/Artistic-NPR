@@ -8,9 +8,6 @@
 	
 	<materials>
 		<material name="silhouette">
-			<color>
-				<DIFFUSE r="0.0" g="0.0" b="0.0" a="1.0" />
-			</color>
 			<shader name="silhouette">
 				<values>
 					<valueof uniform="mPVM" 
@@ -30,8 +27,16 @@
 							 component="PROJECTION" />
 							 
 					<valueof uniform="LineColor"
-							type="COLOR" context="CURRENT"
-							component="DIFFUSE" />
+							 type="RENDERER" context="CURRENT"
+							 component="LineColor" />
+
+					<valueof uniform="PctExtend"
+							 type="RENDERER" context="CURRENT"
+							 component="PctExtend" />
+
+					<valueof uniform="EdgeWidth"
+							 type="RENDERER" context="CURRENT"
+							 component="EdgeWidth" />
 				</values>
 			</shader>
 		</material>
