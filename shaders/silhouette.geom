@@ -4,51 +4,72 @@ layout(triangles_adjacency) in;
 layout (triangle_strip, max_vertices=15) out;
 
 // in
-in vec3 VNormal[];      // Normal in camera coords.
-in vec3 VPosition[];    // Position in camera coords.
+in vec3 vNormal[];      // Normal in camera coords.
+in vec3 vPosition[];    // Position in camera coords.
+in vec3 vLightDir[];
 
 // uniforms
-uniform float PctExtend;
-uniform float EdgeWidth;
+uniform float edgeOverdraw; // percentage to extend the quads beyond the edge
+uniform float edgeWidth;    // width of the silhouette edge in clip coords.
+
 
 // out
-out vec3 GNormal;
-out vec3 GPosition;
-flat out int GIsEdge;
+out vec3 gNormal;
+out vec3 gPosition;
+out vec3 gLightDir;
+out float gDist;
+flat out int gIsEdge;
 
+// takes three triangle corners (in screen space), returning true for front-facing triangles
+// if z coordinate of normal vector is positive
 bool isFrontFacing(vec3 a, vec3 b, vec3 c){
-    //If we are working within eye
-    // coordinates (or clip coordinates), the z coordinate of the normal vector will be positive for front
-    // facing triangles. Therefore, we only need to compute the z coordinate of the normal vector
+
     return ((a.x * b.y - b.x * a.y) +
             (b.x * c.y - c.x * b.y) +
             (c.x * a.y - a.x * c.y)) > 0;
 }
 
-void emitEdgeQuad(vec3 e0, vec3 e1){
-    vec2 ext = PctExtend * (e1.xy - e0.xy);
-    vec2 v = normalize(e1.xy - e0.xy);
-    vec2 n = vec2(-v.y, v.x) * EdgeWidth;
+// emits quad between two points
+void emitEdgeQuad(vec3 p1, vec3 p2){
+
+    vec2 ext = edgeOverdraw * (p2.xy - p1.xy); // edge overdraw vector
+
+    vec2 v = normalize(p2.xy - p1.xy);
+    vec2 n = vec2(-v.y, v.x) * edgeWidth; // extrusion vector, size is width of the quad
     
-    // Emit the quad
-    GIsEdge = 1; // This is part of the sil. edge
-    gl_Position = vec4( e0.xy - ext, e0.z, 1.0 );
+    gIsEdge = 1;
+
+    /*
+        A -- p1 --- p2 -- B  
+        |                 |
+        |                 |
+        C --------------- D
+    */
+
+    // A
+    gDist = 0;
+    gl_Position = vec4( p1.xy - ext, p1.z, 1.0 );
     EmitVertex();
 
-    gl_Position = vec4( e0.xy - n - ext, e0.z, 1.0 );
+    // C
+    gDist = +edgeWidth;
+    gl_Position = vec4( p1.xy - n - ext, p1.z, 1.0 );
     EmitVertex();
 
-    gl_Position = vec4( e1.xy + ext, e1.z, 1.0 );
+    // B
+    gDist = 0;
+    gl_Position = vec4( p2.xy + ext, p2.z, 1.0 );
     EmitVertex();
 
-    gl_Position = vec4( e1.xy - n + ext, e1.z, 1.0 );
+    // D
+    gDist = +edgeWidth;
+    gl_Position = vec4( p2.xy - n + ext, p2.z, 1.0 );
     EmitVertex();
     
     EndPrimitive();
 }
 
 void main(){
-    //Get all 6 vertices
     /*
     5---4---3
      \ / \ /
@@ -78,19 +99,23 @@ void main(){
     }
 
     // Output the original triangle
-    GIsEdge = 0; // Triangle is not part of an edge.
-    GNormal = VNormal[0];
-    GPosition = VPosition[0];
+    gIsEdge = 0; // Triangle is not part of an edge.
+
+    gNormal = vNormal[0];
+    gPosition = vPosition[0];
+    gLightDir = vLightDir[0];
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();
 
-    GNormal = VNormal[2];
-    GPosition = VPosition[2];
+    gNormal = vNormal[2];
+    gPosition = vPosition[2];
+    gLightDir = vLightDir[2];
     gl_Position = gl_in[2].gl_Position;
     EmitVertex();
 
-    GNormal = VNormal[4];
-    GPosition = VPosition[4];
+    gNormal = vNormal[4];
+    gPosition = vPosition[4];
+    gLightDir = vLightDir[4];
     gl_Position = gl_in[4].gl_Position;
     EmitVertex();
 
