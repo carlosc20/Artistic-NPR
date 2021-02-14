@@ -3,14 +3,13 @@
 	<assets>
 		<attributes>
 			<attribute type="RENDERER" name="LineColor" data="VEC4" x="0.0" y="0.0" z="0.0" w="1.0"/>
-			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="0.1"/>
-			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.005"/>
+			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="1.5"/>
+			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.01"/>
 		</attributes>
 
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
 				<file name="models/Teapot.3ds"/>
-				<!--file name="models/al.obj"/-->
 			</scene>
 		</scenes>
 		
@@ -57,14 +56,46 @@
 						toMaterial="silhouette" toLibrary="Silhouette" />
 				</materialMaps>
 			</pass>
+
+			<pass class="default" name="renderViews">
+				<scenes instances=4>
+					<scene name="teapotXNZN" />
+				</scenes>
+				<camera name="CM_Cam_PX" />
+				<renderTarget name="views" fromLibrary="dynamic cubemap" />
+				<lights>
+					<light name="Sun" />
+				</lights>
+				<injectionMaps>
+					<map toMaterial="DefaultOBJMaterial" >
+						<shader fromMaterial="renderViews" fromLibrary="dynamic cubemap" />
+					</map>
+				</injectionMaps>
+			</pass>
+
+			<pass class="default" name="renderFinal1">
+				<scenes instances=4>
+					<scene name="teapotXNZN" />
+				</scenes>
+				<camera name="MainCamera" />
+				<viewport name="MainViewport" />
+				<lights>
+					<light name="Sun" />
+				</lights>
+				<injectionMaps>
+					<map toMaterial="DefaultOBJMaterial" >
+						<shader fromMaterial="color" fromLibrary="dynamic cubemap" />
+					</map>
+				</injectionMaps>
+			</pass>
 		</pipeline>
 	</pipelines>
 
 	<interface>
         <window label="settings">
 			<var label="Line color" type="RENDERER" context="CURRENT" component="LineColor" mode="COLOR" />
-			<var label="Pct Extend" type="RENDERER" context="CURRENT" component="PctExtend" def="min=0 max=1"/>
-			<var label="Edge Width" type="RENDERER" context="CURRENT" component="EdgeWidth" def="min=0 max=0.1"/>
+			<var label="Pct Extend" type="RENDERER" context="CURRENT" component="PctExtend" def="min=0 max=100"/>
+			<var label="Edge Width" type="RENDERER" context="CURRENT" component="EdgeWidth" />
          </window>
     </interface>
 </project>

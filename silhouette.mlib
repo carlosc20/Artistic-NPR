@@ -14,29 +14,33 @@
 							 type="RENDERER" context="CURRENT" 
 							 component="PROJECTION_VIEW_MODEL" />
 
-					<valueof uniform="ModelViewMatrix" 
+					<valueof uniform="mVM" 
 							 type="RENDERER" context="CURRENT" 
 							 component="VIEW_MODEL" />
 
-					<valueof uniform="NormalMatrix" 
+					<valueof uniform="mNormal" 
 							 type="RENDERER" context="CURRENT" 
 							 component="NORMAL" />
 
-					<valueof uniform="ProjectionMatrix" 
+					<valueof uniform="mView" 
 							 type="RENDERER" context="CURRENT" 
-							 component="PROJECTION" />
+							 component="VIEW" />
 							 
-					<valueof uniform="LineColor"
+					<valueof uniform="lineColor"
 							 type="RENDERER" context="CURRENT"
 							 component="LineColor" />
 
-					<valueof uniform="PctExtend"
+					<valueof uniform="edgeOverdraw"
 							 type="RENDERER" context="CURRENT"
 							 component="PctExtend" />
 
-					<valueof uniform="EdgeWidth"
+					<valueof uniform="edgeWidth"
 							 type="RENDERER" context="CURRENT"
 							 component="EdgeWidth" />
+
+					<valueof uniform="lightDir" 
+							 type="LIGHT" context="Sun"
+							 component="DIRECTION" />
 				</values>
 			</shader>
 		</material>
