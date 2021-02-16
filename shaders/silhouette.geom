@@ -17,7 +17,6 @@ uniform float edgeWidth;    // width of the silhouette edge in clip coords.
 out vec3 gNormal;
 out vec3 gPosition;
 out vec3 gLightDir;
-out float gDist;
 flat out int gIsEdge;
 
 bool ifVisible(vec3 a){
@@ -51,22 +50,18 @@ void emitEdgeQuad(vec3 p1, vec3 p2){
     */
 
     // A
-    gDist = 0;
     gl_Position = vec4( p1.xy - ext, p1.z, 1.0 );
     EmitVertex();
 
     // C
-    gDist = +edgeWidth;
     gl_Position = vec4( p1.xy - n - ext, p1.z, 1.0 );
     EmitVertex();
 
     // B
-    gDist = 0;
     gl_Position = vec4( p2.xy + ext, p2.z, 1.0 );
     EmitVertex();
 
     // D
-    gDist = +edgeWidth;
     gl_Position = vec4( p2.xy - n + ext, p2.z, 1.0 );
     EmitVertex();
     

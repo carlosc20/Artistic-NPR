@@ -1,15 +1,20 @@
 <?xml version="1.0" ?>
-<project name="Silhouette" >
+<project name="Silhouette" width=1024 height=576>
 	<assets>
+		<constants>
+			<constant name="WIDTH" value="1024"/><constant name="HEIGHT" value="576"/>
+		</constants>
+
 		<attributes>
 			<attribute type="RENDERER" name="LineColor" data="VEC4" x="0.0" y="0.0" z="0.0" w="1.0"/>
-			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="1.5"/>
-			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.01"/>
+			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="0.1"/>
+			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.005"/>
 		</attributes>
 
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
-				<file name="models/Teapot.3ds"/>
+				<file name="models/Torus.3ds"/>
+				<!--file name="models/al.obj"/-->
 			</scene>
 		</scenes>
 		
@@ -43,59 +48,60 @@
 	
 	<pipelines default="Silhouette">
 		<pipeline name="Silhouette">
-			<pass class="default" name="silhouette">
+
+			<pass class="default" name="early">
 				<scenes>
 					<scene name="Model" />
 				</scenes>
+
 				<camera name="MainCamera" />
 				<lights>
 					<light name="Sun" />
 				</lights>
 				<materialMaps>
-					<map fromMaterial="*" 
-						toMaterial="silhouette" toLibrary="Silhouette" />
+					<map fromMaterial="*" toMaterial="early" toLibrary="Silhouette" />
+				</materialMaps>
+				<renderTarget name="base" fromLibrary="Silhouette" />
+			</pass>
+
+			<pass class="default" name="shading">
+				<scenes>
+					<scene name="Model" />
+				</scenes>
+
+				<camera name="MainCamera" />
+				<lights>
+					<light name="Sun" />
+				</lights>
+				<materialMaps>
+					<map fromMaterial="*" toMaterial="shading" toLibrary="Silhouette" />
 				</materialMaps>
 			</pass>
 
-			<pass class="default" name="renderViews">
-				<scenes instances=4>
-					<scene name="teapotXNZN" />
+			<pass class="default" name="outline">
+				<scenes>
+					<scene name="Model" />
 				</scenes>
-				<camera name="CM_Cam_PX" />
-				<renderTarget name="views" fromLibrary="dynamic cubemap" />
+
+				<COLOR_CLEAR value="False"/>
+				<DEPTH_ENABLE value="False"/>
+				<camera name="MainCamera" />
 				<lights>
 					<light name="Sun" />
 				</lights>
-				<injectionMaps>
-					<map toMaterial="DefaultOBJMaterial" >
-						<shader fromMaterial="renderViews" fromLibrary="dynamic cubemap" />
-					</map>
-				</injectionMaps>
+				<materialMaps>
+					<map fromMaterial="*" toMaterial="outline" toLibrary="Silhouette" />
+				</materialMaps>
 			</pass>
 
-			<pass class="default" name="renderFinal1">
-				<scenes instances=4>
-					<scene name="teapotXNZN" />
-				</scenes>
-				<camera name="MainCamera" />
-				<viewport name="MainViewport" />
-				<lights>
-					<light name="Sun" />
-				</lights>
-				<injectionMaps>
-					<map toMaterial="DefaultOBJMaterial" >
-						<shader fromMaterial="color" fromLibrary="dynamic cubemap" />
-					</map>
-				</injectionMaps>
-			</pass>
 		</pipeline>
 	</pipelines>
 
 	<interface>
         <window label="settings">
-			<var label="Line color" type="RENDERER" context="CURRENT" component="LineColor" mode="COLOR" />
-			<var label="Pct Extend" type="RENDERER" context="CURRENT" component="PctExtend" def="min=0 max=100"/>
-			<var label="Edge Width" type="RENDERER" context="CURRENT" component="EdgeWidth" />
+			<var label="Line Color" type="RENDERER" context="CURRENT" component="LineColor" mode="COLOR" />
+			<var label="Edge Overdraw" type="RENDERER" context="CURRENT" component="PctExtend" def="min=0 max=1"/>
+			<var label="Edge HalfWidth" type="RENDERER" context="CURRENT" component="EdgeWidth" def="min=0 max=0.1"/>
          </window>
     </interface>
 </project>
