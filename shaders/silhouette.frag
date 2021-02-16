@@ -43,7 +43,6 @@ vec3 toonShade(){
 
 void main(){
     if(gIsEdge == 1){
-        
         float alpha = 1.0;
         float d = abs(gDist); // distance from edge
         float tipLength = 2 * fwidth(d); // length of alpha gradient

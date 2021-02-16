@@ -10,7 +10,6 @@
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
 				<file name="models/Teapot.3ds"/>
-				<!--file name="models/al.obj"/-->
 			</scene>
 		</scenes>
 		
