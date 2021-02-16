@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
-<project name="Silhouette" >
+<project name="Silhouette"  width=1024 height=576>
 	<assets>
+		<constants>
+			<constant name="WIDTH" value="1024"/><constant name="HEIGHT" value="576"/>
+		</constants>
+		
 		<attributes>
 			<attribute type="RENDERER" name="LineColor" data="VEC4" x="0.0" y="0.0" z="0.0" w="1.0"/>
 			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="0.1"/>
@@ -9,7 +13,7 @@
 
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
-				<file name="models/Teapot.3ds"/>
+				<file name="bin/models/pushCharacter.3DS"/>
 			</scene>
 		</scenes>
 		

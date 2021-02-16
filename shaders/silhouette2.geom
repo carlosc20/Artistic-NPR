@@ -10,13 +10,18 @@ uniform float edgeWidth;    // width of the silhouette edge in clip coords.
 // out
 out vec3 gSpine;
 
+bool ifVisible(vec3 a){
+    return a.x > -2 && a.x < 2 && 
+        a.y > -2 && a.y < 2;
+}
+
 // takes three triangle corners (in screen space), returning true for front-facing triangles
 // if z coordinate of normal vector is positive
 bool isFrontFacing(vec3 a, vec3 b, vec3 c){
 
     return ((a.x * b.y - b.x * a.y) +
             (b.x * c.y - c.x * b.y) +
-            (c.x * a.y - a.x * c.y)) > 0;
+            (c.x * a.y - a.x * c.y)) > 0 && ifVisible(a) && ifVisible(b) && ifVisible(c);
 }
 
 

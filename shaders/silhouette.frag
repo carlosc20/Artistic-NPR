@@ -1,7 +1,6 @@
 #version 330
 
 // in
-in vec3 gPosition; // Position in camera coords
 in vec3 gNormal; // Normal in camera coords.
 in vec3 gLightDir;
 flat in int gIsEdge; // Whether or not we're drawing an edge
@@ -15,12 +14,10 @@ out vec4 colorOut;
 
 
 vec3 toonShade(){
-
 	float intensity;
 	vec3 l, n;
 	
 	n = normalize(gNormal);
-
 	intensity = max(dot(gLightDir,n),0.0);
 	
     vec3 diffuse = vec3(1.0, 0.0, 0.0);

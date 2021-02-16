@@ -5,17 +5,14 @@ layout (triangle_strip, max_vertices=15) out;
 
 // in
 in vec3 vNormal[];      // Normal in camera coords.
-in vec3 vPosition[];    // Position in camera coords.
 in vec3 vLightDir[];
 
 // uniforms
 uniform float edgeOverdraw; // percentage to extend the quads beyond the edge
 uniform float edgeWidth;    // width of the silhouette edge in clip coords.
 
-
 // out
 out vec3 gNormal;
-out vec3 gPosition;
 out vec3 gLightDir;
 flat out int gIsEdge;
 
@@ -34,7 +31,6 @@ bool isFrontFacing(vec3 a, vec3 b, vec3 c){
 
 // emits quad between two points
 void emitEdgeQuad(vec3 p1, vec3 p2){
-
     vec2 ext = edgeOverdraw * (p2.xy - p1.xy); // edge overdraw vector
 
     vec2 v = normalize(p2.xy - p1.xy);
@@ -101,19 +97,16 @@ void main(){
     gIsEdge = 0; // Triangle is not part of an edge.
 
     gNormal = vNormal[0];
-    gPosition = vPosition[0];
     gLightDir = vLightDir[0];
     gl_Position = gl_in[0].gl_Position;
     EmitVertex();
 
     gNormal = vNormal[2];
-    gPosition = vPosition[2];
     gLightDir = vLightDir[2];
     gl_Position = gl_in[2].gl_Position;
     EmitVertex();
 
     gNormal = vNormal[4];
-    gPosition = vPosition[4];
     gLightDir = vLightDir[4];
     gl_Position = gl_in[4].gl_Position;
     EmitVertex();
