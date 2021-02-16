@@ -4,7 +4,6 @@
 in vec3 gPosition; // Position in camera coords
 in vec3 gNormal; // Normal in camera coords.
 in vec3 gLightDir;
-in float gDist;
 flat in int gIsEdge; // Whether or not we're drawing an edge
 
 // uniforms
@@ -21,7 +20,7 @@ vec3 toonShade(){
 	vec3 l, n;
 	
 	n = normalize(gNormal);
-	// no need to normalize the light direction!
+
 	intensity = max(dot(gLightDir,n),0.0);
 	
     vec3 diffuse = vec3(1.0, 0.0, 0.0);
@@ -43,15 +42,7 @@ vec3 toonShade(){
 
 void main(){
     if(gIsEdge == 1){
-        
-        float alpha = 1.0;
-        float d = abs(gDist); // distance from edge
-        float tipLength = 2 * fwidth(d); // length of alpha gradient
-        if (d > edgeWidth - tipLength)
-            alpha = 1.0 - (d - edgeWidth + tipLength) / tipLength;
-
-        colorOut = vec4(lineColor.xyz, alpha);
-        //colorOut = lineColor;
+        colorOut = lineColor;
     }
     else{
         colorOut = vec4(toonShade(), 1.0);

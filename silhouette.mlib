@@ -1,11 +1,44 @@
 <?xml version="1.0" ?>
 <materialLib name="Silhouette">
+
+	<renderTargets>
+        <renderTarget name ="base">
+            <SIZE width="WIDTH" height="HEIGHT" />
+			<CLEAR_VALUES r="1.0" g="1.0" b="1.0" />
+            <colors>
+                <color name="baseNormal" internalFormat="RGBA32F" />
+            </colors>
+            <depth name="baseDepth" internalFormat="DEPTH_COMPONENT32F" />
+        </renderTarget>
+	</renderTargets>
+
 	<shaders>
 		<shader name="silhouette"	vs = "shaders/silhouette.vert"
 									gs = "shaders/silhouette.geom"
 									ps = "shaders/silhouette.frag" />
+
+		<shader name="early"		vs = "shaders/early.vert"
+									ps = "shaders/early.frag" />
+
+		<shader name="shading"		vs = "shaders/shading.vert"
+									ps = "shaders/shading.frag" />
+
+		<shader name="outline"	vs = "shaders/silhouette2.vert"
+									gs = "shaders/silhouette2.geom"
+									ps = "shaders/silhouette2.frag" />
+
+
+
 	</shaders>
 	
+	<states>
+		<state name="blendpar">
+				<BLEND value="TRUE" />
+				<BLEND_SRC value="SRC_ALPHA" />
+				<BLEND_DST value="ONE_MINUS_SRC_ALPHA" />
+		</state>
+	</states>
+
 	<materials>
 		<material name="silhouette">
 			<shader name="silhouette">
@@ -43,6 +76,75 @@
 							 component="DIRECTION" />
 				</values>
 			</shader>
+			<state name="blendpar"/>
+		</material>
+
+		<material name="early">
+			<shader name="early">
+				<values>
+					<valueof uniform="mPVM" 
+							 type="RENDERER" context="CURRENT" 
+							 component="PROJECTION_VIEW_MODEL" />
+
+					<valueof uniform="mNormal" 
+							 type="RENDERER" context="CURRENT" 
+							 component="NORMAL" />
+				</values>
+			</shader>
+		</material>
+
+		<material name="shading">
+			<shader name="shading">
+				<values>
+					<valueof uniform="mPVM" 
+							 type="RENDERER" context="CURRENT" 
+							 component="PROJECTION_VIEW_MODEL" />
+
+					<valueof uniform="mNormal" 
+							 type="RENDERER" context="CURRENT" 
+							 component="NORMAL" />
+
+					<valueof uniform="mView" 
+							 type="RENDERER" context="CURRENT" 
+							 component="VIEW" />
+							 
+					<valueof uniform="lightDir" 
+							 type="LIGHT" context="Sun"
+							 component="DIRECTION" />
+				</values>
+			</shader>
+		</material>
+
+		<material name="outline">
+			<shader name="outline">
+				<values>
+					<valueof uniform="mPVM" 
+							 type="RENDERER" context="CURRENT" 
+							 component="PROJECTION_VIEW_MODEL" />
+
+					<valueof uniform="lineColor"
+							 type="RENDERER" context="CURRENT"
+							 component="LineColor" />
+
+					<valueof uniform="edgeOverdraw"
+							 type="RENDERER" context="CURRENT"
+							 component="PctExtend" />
+
+					<valueof uniform="edgeWidth"
+							 type="RENDERER" context="CURRENT"
+							 component="EdgeWidth" />
+
+					<valueof uniform="depthSampler"            
+							 type="TEXTURE_BINDING"    
+							 context="CURRENT"         
+							 component="UNIT" 
+							 id="0" />
+				</values>
+			</shader>
+			<state name="blendpar"/>
+			<textures>
+				<texture name="baseDepth" UNIT="0"/>
+			</textures>
 		</material>
 	</materials>
 </materialLib>	
