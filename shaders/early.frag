@@ -1,7 +1,9 @@
 #version 330
 
+// in
 in vec3 vNormal;
 
+// out
 out vec3 colorOut;
 
 void main(){

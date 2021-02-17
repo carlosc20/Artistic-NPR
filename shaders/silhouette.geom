@@ -17,28 +17,30 @@ out vec3 gNormal;
 out vec3 gLightDir;
 flat out int gIsEdge;
 
+// Check if a point is visible by the camara
 bool isVisible(vec3 a){
     return a.x > -2 && a.x < 2 && a.y > -2 && a.y < 2;
 }
 
 // takes three triangle corners (in screen space), returning true for front-facing triangles
 // if z coordinate of normal vector is positive
-bool isFrontFacing(vec3 a, vec3 b, vec3 c){//-0.00001
+bool isFrontFacing(vec3 a, vec3 b, vec3 c){
     float threshold  = 0.0;
     if(normalThreshold == 1){
         threshold = -0.000001;
     }
+    
     return (((a.x * b.y - b.x * a.y) +
             (b.x * c.y - c.x * b.y) +
             (c.x * a.y - a.x * c.y)) > threshold) && isVisible(a) && isVisible(b) && isVisible(c);
 }
 
-// emits quad between two points
+// emits quad between two points (edge)
 void emitEdgeQuad(vec3 p1, vec3 p2){
-    vec2 ext = edgeOverdraw * (p2.xy - p1.xy); // edge overdraw vector
+    vec2 ext = edgeOverdraw * (p2.xy - p1.xy); //edge overdraw vector
 
     vec2 v = normalize(p2.xy - p1.xy);
-    vec2 n = vec2(-v.y, v.x) * edgeWidth; // extrusion vector, size is width of the quad
+    vec2 n = vec2(-v.y, v.x) * edgeWidth; //edge Width vector
     
     gIsEdge = 1;
 

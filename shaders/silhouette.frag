@@ -12,7 +12,6 @@ uniform float edgeWidth;
 // out
 out vec4 colorOut;
 
-
 vec3 toonShade(){
 	float intensity;
 	vec3 l, n;
