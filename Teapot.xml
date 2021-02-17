@@ -14,7 +14,7 @@
 
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
-				<file name="bin/models/Teapot.3ds"/>
+				<file name="models/Teapot.3ds"/>
 			</scene>
 		</scenes>
 		
