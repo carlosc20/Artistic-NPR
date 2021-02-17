@@ -1,0 +1,75 @@
+<?xml version="1.0" ?>
+<project name="Silhouette" width=1024 height=576>
+	<assets>
+		<constants>
+			<constant name="WIDTH" value="1024"/><constant name="HEIGHT" value="576"/>
+		</constants>
+		
+		<attributes>
+			<attribute type="RENDERER" name="LineColor" data="VEC4" x="0.0" y="0.0" z="0.0" w="1.0"/>
+			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="0.0"/>
+			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.015"/>
+			<attribute type="RENDERER" name="NormalThreshold" data="INT" value="0"/>
+		</attributes>
+
+		<scenes>
+			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
+				<file name="models/Torus.3ds"/>
+			</scene>
+		</scenes>
+		
+		<viewports>
+			<viewport name="MainViewport">
+				<CLEAR_COLOR r="1.0" g="1.0" b="1.0" />
+			</viewport>
+		</viewports>
+		
+		<cameras>
+			<camera name="MainCamera" >
+				<viewport name="MainViewport"/>
+				<POSITION x=-1.914014 y=0.492289 z=1.460414 />
+				<VIEW x=0.810088 y=-0.208939 z=-0.547815 />
+				<UP x=0 y=1 z=0 />
+				<NEAR value=0.1 />
+				<FAR value=100 />
+			</camera>
+		</cameras>
+		
+		<lights>
+			<light name="Sun">
+				<DIRECTION x=2 y=-1 z=-2 />
+			</light>
+		</lights>
+		
+		<materialLibs>
+			<materialLib filename="silhouette.mlib" />
+		</materialLibs>
+	</assets>
+	
+	<pipelines default="Silhouette">
+		<pipeline name="Silhouette">
+			<pass class="default" name="silhouette">
+				<scenes>
+					<scene name="Model" />
+				</scenes>
+				<camera name="MainCamera" />
+				<lights>
+					<light name="Sun" />
+				</lights>
+				<materialMaps>
+					<map fromMaterial="*" 
+						toMaterial="silhouette" toLibrary="Silhouette" />
+				</materialMaps>
+			</pass>
+		</pipeline>
+	</pipelines>
+
+	<interface>
+        <window label="settings">
+			<var label="Line color" type="RENDERER" context="CURRENT" component="LineColor" mode="COLOR" />
+			<var label="Pct Extend" type="RENDERER" context="CURRENT" component="PctExtend" def="min=0 max=1"/>
+			<var label="Edge Width" type="RENDERER" context="CURRENT" component="EdgeWidth" def="min=0 max=0.1"/>
+			<var label="Normal Threshold" type="RENDERER" context="CURRENT" component="NormalThreshold" def="min=0 max=1"/>
+         </window>
+    </interface>
+</project>

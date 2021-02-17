@@ -7,6 +7,5 @@ in vec4 position;
 uniform mat4 mPVM;
 
 void main(){
-
     gl_Position = mPVM * position;
 }

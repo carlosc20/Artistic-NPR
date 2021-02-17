@@ -10,23 +10,27 @@ in vec3 vLightDir[];
 // uniforms
 uniform float edgeOverdraw; // percentage to extend the quads beyond the edge
 uniform float edgeWidth;    // width of the silhouette edge in clip coords.
+uniform int normalThreshold;
 
 // out
 out vec3 gNormal;
 out vec3 gLightDir;
 flat out int gIsEdge;
 
-bool ifVisible(vec3 a){
-    return a.x > -2 && a.x < 2 && 
-        a.y > -2 && a.y < 2;
+bool isVisible(vec3 a){
+    return a.x > -2 && a.x < 2 && a.y > -2 && a.y < 2;
 }
 
 // takes three triangle corners (in screen space), returning true for front-facing triangles
 // if z coordinate of normal vector is positive
-bool isFrontFacing(vec3 a, vec3 b, vec3 c){
+bool isFrontFacing(vec3 a, vec3 b, vec3 c){//-0.00001
+    float threshold  = 0.0;
+    if(normalThreshold == 1){
+        threshold = -0.000001;
+    }
     return (((a.x * b.y - b.x * a.y) +
             (b.x * c.y - c.x * b.y) +
-            (c.x * a.y - a.x * c.y)) > 0) && ifVisible(a) && ifVisible(b) && ifVisible(c);
+            (c.x * a.y - a.x * c.y)) > threshold) && isVisible(a) && isVisible(b) && isVisible(c);
 }
 
 // emits quad between two points

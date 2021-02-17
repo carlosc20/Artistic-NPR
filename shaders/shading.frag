@@ -19,8 +19,6 @@ void main()
 		colorOut = 0.75 * diffuse;
 	else if (intensity > 0.5)
 		colorOut = 0.5 * diffuse;
-	else if (intensity > 0.25)
-		colorOut = 0.25 * diffuse;
 	else
-		colorOut = 0.1 * diffuse;
+		colorOut = 0.35 * diffuse;
 }

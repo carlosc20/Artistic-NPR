@@ -71,6 +71,10 @@
 							 type="RENDERER" context="CURRENT"
 							 component="EdgeWidth" />
 
+					<valueof uniform="normalThreshold"
+							 type="RENDERER" context="CURRENT"
+							 component="NormalThreshold" />
+
 					<valueof uniform="lightDir" 
 							 type="LIGHT" context="Sun"
 							 component="DIRECTION" />

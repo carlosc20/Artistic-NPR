@@ -7,13 +7,14 @@
 
 		<attributes>
 			<attribute type="RENDERER" name="LineColor" data="VEC4" x="0.0" y="0.0" z="0.0" w="1.0"/>
-			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="0.1"/>
+			<attribute type="RENDERER" name="PctExtend" data="FLOAT" value="1"/>
 			<attribute type="RENDERER" name="EdgeWidth" data="FLOAT" value="0.005"/>
+			<attribute type="RENDERER" name="NormalThreshold" data="INT" value="0"/>
 		</attributes>
 
 		<scenes>
 			<scene name="Model" param="USE_ADJACENCY UNITIZE SWAP_YZ">
-				<file name="models/Torus.3ds"/>
+				<file name="models/bunny.obj"/>
 				<!--file name="models/al.obj"/-->
 			</scene>
 		</scenes>
@@ -102,6 +103,7 @@
 			<var label="Line Color" type="RENDERER" context="CURRENT" component="LineColor" mode="COLOR" />
 			<var label="Edge Overdraw" type="RENDERER" context="CURRENT" component="PctExtend" def="min=0 max=1"/>
 			<var label="Edge HalfWidth" type="RENDERER" context="CURRENT" component="EdgeWidth" def="min=0 max=0.1"/>
+			<var label="Normal Threshold" type="RENDERER" context="CURRENT" component="NormalThreshold" def="min=0 max=1"/>
          </window>
     </interface>
 </project>

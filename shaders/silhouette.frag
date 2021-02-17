@@ -29,10 +29,8 @@ vec3 toonShade(){
 		outputF = 0.75 * diffuse;
 	else if (intensity > 0.5)
 		outputF = 0.5 * diffuse;
-	else if (intensity > 0.25)
+	else 
 		outputF = 0.25 * diffuse;
-	else
-		outputF = 0.1 * diffuse;
 
     return outputF;
 }

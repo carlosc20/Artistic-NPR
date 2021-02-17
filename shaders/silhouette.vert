@@ -10,7 +10,7 @@ uniform mat4 mVM;
 uniform mat3 mNormal;
 uniform mat4 mView;
 uniform mat4 mPVM;
-uniform vec4 lightDir; // global space
+uniform vec4 lightDir; //global space
 
 // out
 out vec3 vNormal;
